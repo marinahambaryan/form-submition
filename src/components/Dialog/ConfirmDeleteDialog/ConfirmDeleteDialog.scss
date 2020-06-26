@@ -1,0 +1,60 @@
+@import "../../../constants/colors.scss";
+.confirmationAlertText {
+  margin: 10px 0;
+  p {
+    font-size: 12px;
+  }
+}
+
+.confirmActionContainer {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 0.6px solid $lightGrey;
+}
+
+.messageContainer {
+  color: $red;
+  font-size: 16px;
+  margin: 10px 0;
+
+  p {
+    font-size: 14px;
+  }
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    border: 1px solid;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    font-weight: bold;
+  }
+
+  button:hover {
+    background-color: white;
+  }
+
+  .accept {
+    background-color: $blue;
+    border-color: $blue;
+  }
+
+  .accept:hover {
+    color: $blue;
+  }
+
+  .decline {
+    background-color: $red;
+    border-color: $red;
+  }
+
+  .decline:hover {
+    color: $red;
+  }
+}

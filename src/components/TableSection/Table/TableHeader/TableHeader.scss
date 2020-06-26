@@ -1,0 +1,26 @@
+@import "../../../../constants/colors.scss";
+
+.TableHeader {
+  background-color: $lightGrey;
+  font-size: 14px;
+  th {
+    font-weight: normal;
+    padding: 13px;
+    white-space: nowrap;
+    text-align: initial;
+  }
+  .ageContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    .age {
+      display: flex;
+      align-items: center;
+    }
+    .arrowContainer {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

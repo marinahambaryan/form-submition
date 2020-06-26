@@ -1,0 +1,31 @@
+@import "../../../../../../constants/colors.scss";
+.Input {
+  display: flex;
+  border-radius: 6px;
+  border: 0.6px solid $grey;
+
+  input {
+    padding: 7px 12px;
+    flex: 1;
+    border: none;
+    border-radius: inherit;
+    background: transparent;
+    color: $grey;
+  }
+
+  input::placeholder {
+    opacity: 0.6;
+  }
+
+  input[type="date"]::placeholder {
+    opacity: 0.6;
+    padding: 4px 12px;
+  }
+
+  input[type="radio"] {
+    margin-left: 0;
+  }
+}
+.InvalidInput {
+  border-color: $red;
+}

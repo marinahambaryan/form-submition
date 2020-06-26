@@ -1,0 +1,23 @@
+.FormContainer {
+  width: 50%;
+  padding: 0 10px;
+
+  .sectionSubtitle {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .FormContainer {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .FormContainer {
+    width: 80%;
+  }
+}

@@ -1,0 +1,33 @@
+@import "../../../../constants/colors.scss";
+.errorMessage {
+  font-size: 12px;
+  font-weight: bold;
+  color: $red;
+}
+
+.nameInputsContainer {
+  display: flex;
+}
+
+.PhoneInput {
+  width: 100%;
+  padding-left: 12px;
+
+  .PhoneInputCountryIcon {
+    box-shadow: none;
+  }
+
+  .PhoneInputCountrySelectArrow {
+  }
+
+  input {
+    border: none;
+    border-radius: inherit;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .nameInputsContainer {
+    flex-wrap: wrap;
+  }
+}

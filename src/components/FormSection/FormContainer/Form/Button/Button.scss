@@ -1,0 +1,16 @@
+@import "../../../../../constants/colors.scss";
+.Button {
+  margin-top: 30px;
+
+  input {
+    background-color: $blue;
+    color: #ffffff;
+    border-radius: 6px;
+    width: 100%;
+    border: none;
+    padding: 7px;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+}

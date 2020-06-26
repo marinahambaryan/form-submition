@@ -1,0 +1,26 @@
+.InputContainer {
+  flex: 1;
+}
+
+.FirstNameInputContainer {
+  margin-right: 6px;
+}
+
+.LastNameInputContainer {
+  margin-left: 6px;
+}
+
+@media only screen and (max-width: 500px) {
+  .FirstNameInputContainer,
+  .LastNameInputContainer {
+    margin: 0;
+  }
+
+  .FirstNameInputContainer {
+    margin-bottom: 40px;
+  }
+
+  .InputContainer {
+    width: 100%;
+  }
+}
