@@ -13,10 +13,11 @@
 @media only screen and (max-width: 500px) {
   .FormContainer {
     width: 100%;
+    padding: 0;
   }
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (min-width: 501px) and (max-width: 900px) {
   .FormContainer {
     width: 80%;
   }

@@ -1,6 +1,12 @@
-import { OPEN_DIALOG, CLOSE_DIALOG, TOGGLE_DIALOG } from "../actions/dialog";
+import { OPEN_DIALOG, CLOSE_DIALOG } from "../actions/dialog";
 
-const dialogReducer = (state = false, action) => {
+const initialState = {
+  open: false,
+  dialogType: null,
+  userId: null,
+};
+
+const dialogReducer = (state = initialState, action) => {
   switch (action.type) {
     case OPEN_DIALOG:
       return {
@@ -10,9 +16,7 @@ const dialogReducer = (state = false, action) => {
       };
 
     case CLOSE_DIALOG:
-      return { open: false };
-    case TOGGLE_DIALOG:
-      return action.payload;
+      return { open: false, dialogType: null, userId: null };
     default:
       return state;
   }

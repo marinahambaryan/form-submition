@@ -41,7 +41,7 @@ function WelcomeDialog() {
         </span>
       </div>
       <div className="textContainer">
-        <p>Do you want to see initial dummy data ?</p>
+        <p>Do you want to see the initial dummy data ?</p>
         <p>Choose by the help of the switch and confirm your choice !</p>
       </div>
       <div className="buttonsContainer">
