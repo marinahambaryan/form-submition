@@ -31,6 +31,9 @@ const sortUsers = (users) => {
 
 const findIndexOfObj = function (arr, obj, field, direction) {
   for (let i = 0; i <= arr.length; i++) {
+    if (i === arr.length) {
+      return i;
+    }
     if (direction === 1) {
       if (
         obj[field] < arr[i][field] ||
