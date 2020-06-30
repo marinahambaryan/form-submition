@@ -1,9 +1,10 @@
-//librarys
+//libraries
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions
-import { setUsersList } from "../../../store/actions/users";
+import { setUsersList, sortByField } from "../../../store/actions/users";
+import { setSortFieldAndDirection } from "../../../store/actions/sortFieldAndDirection";
 
 //dummy-data
 import { USERS } from "../../../data/dummy-data";
@@ -19,8 +20,19 @@ function Table() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
 
+  const handleSortFieldAndDirectionChange = (field, direction) => {
+    dispatch(setSortFieldAndDirection(field, direction));
+    dispatch(sortByField(field, direction));
+  };
+
   useEffect(() => {
-    dispatch(setUsersList(USERS));
+    let localUsers = JSON.parse(localStorage.getItem("users"));
+    if (localUsers) {
+      dispatch(setUsersList(localUsers));
+    } else {
+      dispatch(setUsersList(USERS));
+    }
+    dispatch(setSortFieldAndDirection("name", 1));
   }, [dispatch]);
 
   return (
@@ -28,7 +40,11 @@ function Table() {
       {users.length > 0 ? (
         <table className="Table">
           <thead>
-            <TableHeader />
+            <TableHeader
+              handleSortFieldAndDirectionChange={
+                handleSortFieldAndDirectionChange
+              }
+            />
           </thead>
           <tbody>
             {users.map((user, index) => (

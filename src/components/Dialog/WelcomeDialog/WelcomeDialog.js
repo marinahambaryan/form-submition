@@ -28,7 +28,14 @@ function WelcomeDialog() {
 
   const handleConfirm = () => {
     let usersList = isAllDataChosen ? USERS : [];
-    dispatch(setUsersList(usersList));
+    let localUsers = JSON.parse(localStorage.getItem("users"));
+    if (localUsers) {
+      dispatch(setUsersList(localUsers));
+    } else {
+      localStorage.setItem("users", JSON.stringify(usersList));
+      dispatch(setUsersList(usersList));
+    }
+
     dispatch(closeDialog());
   };
 

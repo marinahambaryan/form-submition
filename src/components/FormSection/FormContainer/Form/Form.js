@@ -1,17 +1,25 @@
+//libraries
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 
+//styles
 import "./Form.scss";
 
+//actions
 import { addUser } from "../../../../store/actions/users";
+
+//methods
 import {
   capitalizeText,
   calculateAge,
   emailIsUsed,
 } from "../../../../methods/methods";
+
+//models
 import User from "../../../../models/user";
 
+//components
 import Label from "./Label/Label";
 import Button from "./Button/Button";
 import FirstName from "./inputFields/FirstName/FirstName";
@@ -24,6 +32,10 @@ import GenderInput from "./inputFields/GenderInput/GenderInput";
 function Form() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+  const sortFieldAndDirection = useSelector(
+    (state) => state.sortFieldAndDirection
+  );
+
   const [errorMessage, setErrorMessage] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [isFirstNameValid, setIsFirstNameValid] = useState(true);
@@ -113,10 +125,12 @@ function Form() {
     const fName = capitalizeText(e.target.value.trim());
     setFirstName(fName);
   };
+
   const handleLastNameInputChange = (e) => {
     const lName = capitalizeText(e.target.value.trim());
     setLastName(lName);
   };
+
   const handleEmailInputChange = (e) => {
     setEmail(e.target.value.trim());
   };
@@ -137,7 +151,7 @@ function Form() {
       if (emailIsUsed(users, newUser.email)) {
         setErrorMessage(`${newUser.email} is already used!`);
       } else {
-        dispatch(addUser(newUser, 1, "name"));
+        dispatch(addUser(newUser, sortFieldAndDirection));
         setErrorMessage(null);
         resetInputs();
         resetValidation();

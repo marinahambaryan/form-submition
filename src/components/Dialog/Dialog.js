@@ -1,4 +1,4 @@
-//librarys
+//libraries
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,7 +28,10 @@ function Dialog() {
   }, [dialog, users]);
 
   useEffect(() => {
-    dispatch(openDialog("changeDataSettings", "0"));
+    let localUsers = JSON.parse(localStorage.getItem("users"));
+    if (!localUsers) {
+      dispatch(openDialog("changeDataSettings", "0"));
+    }
   }, [dispatch]);
 
   return (

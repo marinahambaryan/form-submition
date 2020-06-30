@@ -3,24 +3,37 @@
 .TableHeader {
   background-color: $lightGrey;
   font-size: 14px;
+
   th {
     font-weight: normal;
     padding: 13px;
     white-space: nowrap;
     text-align: initial;
   }
-  .ageContainer {
+
+  th:hover {
+    .headerCellContainer {
+      .arrowContainer {
+        visibility: visible;
+      }
+    }
+  }
+
+  .headerCellContainer {
     display: flex;
     justify-content: space-between;
     margin: 0;
-    .age {
+
+    .fieldNameContainer {
       display: flex;
       align-items: center;
     }
+
     .arrowContainer {
       cursor: pointer;
       display: flex;
       align-items: center;
+      visibility: hidden;
     }
   }
 }

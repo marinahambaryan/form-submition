@@ -1,6 +1,6 @@
-//librarys
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+//libraries
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
@@ -8,27 +8,41 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import "./TableHeader.scss";
 
 //actions
-import { sortByAge } from "../../../../store/actions/users";
+import { sortByField } from "../../../../store/actions/users";
+import { setFieldsDirections } from "../../../../store/actions/fieldsDirections";
 
 //components
 import TableCell from "../TableCell/TableCell";
 
-function TableHeader() {
-  const [isAccending, setIsAccending] = useState(null);
-
+function TableHeader(props) {
   const dispatch = useDispatch();
+  const fieldsDirections = useSelector((state) => state.fieldsDirections);
 
-  const toggleAgeOrderDirection = () => {
+  const [isNameAscending, setIsNameAscending] = useState(null);
+  const [isEmailAscending, setIsEmailAscending] = useState(null);
+  const [isPhoneNumberAscending, setIsPhoneNumberAscending] = useState(null);
+  const [isAgeAscending, setIsAgeAscending] = useState(null);
+  const [isGenderAscending, setIsGenderAscending] = useState(null);
+
+  const toggleFieldOrderDirection = (field, isAscending) => {
     let order;
-    if (isAccending !== null) {
-      order = !isAccending;
-      setIsAccending(order);
+    if (isAscending !== null) {
+      order = !isAscending;
     } else {
-      setIsAccending(true);
       order = true;
     }
-    dispatch(sortByAge(order ? 1 : -1));
+    dispatch(setFieldsDirections(field, order));
+    dispatch(sortByField(field, order ? 1 : -1));
+    props.handleSortFieldAndDirectionChange(field, order ? 1 : -1);
   };
+
+  useEffect(() => {
+    setIsNameAscending(fieldsDirections["name"].isAscending);
+    setIsEmailAscending(fieldsDirections["email"].isAscending);
+    setIsPhoneNumberAscending(fieldsDirections["phoneNumber"].isAscending);
+    setIsAgeAscending(fieldsDirections["age"].isAscending);
+    setIsGenderAscending(fieldsDirections["gender"].isAscending);
+  }, [fieldsDirections]);
 
   return (
     <tr className="TableHeader">
@@ -36,28 +50,93 @@ function TableHeader() {
         <p></p>
       </TableCell>
       <TableCell isHeader={true}>
-        <p>First Name</p>
-      </TableCell>
-      <TableCell isHeader={true}>
-        <p>Email</p>
-      </TableCell>
-      <TableCell isHeader={true}>
-        <p>Phone Number</p>
-      </TableCell>
-      <TableCell className="ageContainer" isHeader={true}>
-        <div className="age">
-          <p>Age</p>
-        </div>
-        <div onClick={toggleAgeOrderDirection} className="arrowContainer">
-          {isAccending || isAccending === null ? (
-            <KeyboardArrowDownIcon />
-          ) : (
-            <KeyboardArrowUpIcon />
-          )}
+        <div className="headerCellContainer">
+          <div className="fieldNameContainer">
+            <p>Full Name</p>
+          </div>
+          <div
+            onClick={() => toggleFieldOrderDirection("name", isNameAscending)}
+            className="arrowContainer"
+          >
+            {isNameAscending || isNameAscending === null ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </div>
         </div>
       </TableCell>
       <TableCell isHeader={true}>
-        <p>Gender</p>
+        <div className="headerCellContainer">
+          <div className="fieldNameContainer">
+            <p>Email</p>
+          </div>
+          <div
+            onClick={() => toggleFieldOrderDirection("email", isEmailAscending)}
+            className="arrowContainer"
+          >
+            {isEmailAscending || isEmailAscending === null ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </div>
+        </div>
+      </TableCell>
+      <TableCell isHeader={true}>
+        <div className="headerCellContainer">
+          <div className="fieldNameContainer">
+            <p>Phone Number</p>
+          </div>
+          <div
+            onClick={() =>
+              toggleFieldOrderDirection("phoneNumber", isPhoneNumberAscending)
+            }
+            className="arrowContainer"
+          >
+            {isPhoneNumberAscending || isPhoneNumberAscending === null ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </div>
+        </div>
+      </TableCell>
+      <TableCell isHeader={true}>
+        <div className="headerCellContainer">
+          <div className="fieldNameContainer">
+            <p>Age</p>
+          </div>
+          <div
+            onClick={() => toggleFieldOrderDirection("age", isAgeAscending)}
+            className="arrowContainer"
+          >
+            {isAgeAscending || isAgeAscending === null ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </div>
+        </div>
+      </TableCell>
+      <TableCell isHeader={true}>
+        <div className="headerCellContainer">
+          <div className="fieldNameContainer">
+            <p>Gender</p>
+          </div>
+          <div
+            onClick={() =>
+              toggleFieldOrderDirection("gender", isGenderAscending)
+            }
+            className="arrowContainer"
+          >
+            {isGenderAscending || isGenderAscending === null ? (
+              <KeyboardArrowDownIcon />
+            ) : (
+              <KeyboardArrowUpIcon />
+            )}
+          </div>
+        </div>
       </TableCell>
       <TableCell isHeader={true} className="sideChild">
         <p></p>

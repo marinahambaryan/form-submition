@@ -21,7 +21,6 @@ function ConfirmDeleteDialog(props) {
   };
 
   const handleDelete = (id) => {
-    console.log("confirm dialog");
     dispatch(deleteUser(id));
   };
 

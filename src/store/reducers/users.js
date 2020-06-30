@@ -3,6 +3,7 @@ import {
   DELETE_USER,
   SET_USERS_LIST,
   SORT_BY_AGE,
+  SORT_BY_FIELD,
 } from "../actions/users";
 
 const initialState = {
@@ -28,36 +29,24 @@ const sortUsers = (users) => {
   });
 };
 
-const findIndexOfElement = (arr, elem) => {
-  let start = 0,
-    end = arr.length - 1;
-  let pos = -1;
-
-  while (start <= end) {
-    let mid = Math.floor((start + end) / 2);
-    if (arr[mid].name === elem.name) {
-      pos = mid;
-      break;
-    } else if (arr[mid].name < elem.name) {
-      start = mid + 1;
-    } else {
-      end = mid - 1;
-    }
-  }
-  if (pos === -1) {
-    if (arr[0].name > elem.name) {
-      return 0;
-    }
-    return arr.length;
-  } else {
-    while (arr[pos].name === elem.name && pos < arr.length) {
-      if (arr[pos].email > elem.email) {
-        break;
+const findIndexOfObj = function (arr, obj, field, direction) {
+  for (let i = 0; i <= arr.length; i++) {
+    if (direction === 1) {
+      if (
+        obj[field] < arr[i][field] ||
+        (obj[field] === arr[i][field] && obj.email < arr[i].email)
+      ) {
+        return i;
       }
-      ++pos;
+    } else {
+      if (
+        obj[field] > arr[i][field] ||
+        (obj[field] === arr[i][field] && obj.email > arr[i].email)
+      ) {
+        return i;
+      }
     }
   }
-  return pos;
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -69,11 +58,17 @@ const usersReducer = (state = initialState, action) => {
 
     case ADD_USER:
       if (usersCopy.length > 0) {
-        let myUserIndex = findIndexOfElement(usersCopy, action.user);
+        let myUserIndex = findIndexOfObj(
+          usersCopy,
+          action.user,
+          action.fieldAndDirection.field,
+          action.fieldAndDirection.direction
+        );
         usersCopy.splice(myUserIndex, 0, action.user);
       } else {
         usersCopy.push(action.user);
       }
+      localStorage.setItem("users", JSON.stringify(usersCopy));
       return { ...state, users: usersCopy };
 
     case DELETE_USER:
@@ -81,10 +76,24 @@ const usersReducer = (state = initialState, action) => {
         (user) => user.id === action.userId
       );
       usersCopy.splice(userIndex, 1);
+      localStorage.setItem("users", JSON.stringify(usersCopy));
       return { ...state, users: usersCopy };
 
     case SORT_BY_AGE:
       usersCopy.sort((a, b) => (a.age - b.age) * action.direction);
+      return { ...state, users: usersCopy };
+
+    case SORT_BY_FIELD:
+      usersCopy.sort((a, b) => {
+        let firstMainField = a[action.field];
+        let secondMainField = b[action.field];
+        if (firstMainField === secondMainField) {
+          return a.email > b.email ? action.direction : -action.direction;
+        }
+        return a[action.field] > b[action.field]
+          ? action.direction
+          : -action.direction;
+      });
       return { ...state, users: usersCopy };
     default:
       return state;

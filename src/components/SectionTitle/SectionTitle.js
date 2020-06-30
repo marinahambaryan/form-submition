@@ -1,4 +1,4 @@
-//librarys
+//libraries
 import React from "react";
 
 //styles

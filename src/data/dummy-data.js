@@ -24,7 +24,14 @@ export const USERS = [
     25,
     "Male"
   ),
-
+  new User(
+    "6",
+    "Aram Khachatryan",
+    "composer@gmail.com",
+    "+37455555522",
+    19,
+    "Male"
+  ),
   new User(
     "5",
     "Monica Bellucci",

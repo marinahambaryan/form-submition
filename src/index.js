@@ -16,10 +16,14 @@ import * as serviceWorker from "./serviceWorker";
 //reducers
 import usersReducer from "./store/reducers/users";
 import dialogReducer from "./store/reducers/dialog";
+import sortFieldAndDirectionReducer from "./store/reducers/sortFieldAndDirection";
+import fieldsDirectionsReducer from "./store/reducers/fieldsDirections";
 
 const rootReducer = combineReducers({
   users: usersReducer,
   dialog: dialogReducer,
+  sortFieldAndDirection: sortFieldAndDirectionReducer,
+  fieldsDirections: fieldsDirectionsReducer,
 });
 
 const store = createStore(
